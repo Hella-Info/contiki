@@ -351,7 +351,7 @@ PT_THREAD(handle_dhcp(process_event_t ev, void *data))
   }
 
   while(s.ticks > 0) {
-    ticks = IMIN(s.ticks, MAX_TICKS);
+    ticks = IMIN(s.ticks, MAX_TICKS32);
     s.ticks -= ticks;
     etimer_set(&s.etimer, ticks);
     PT_YIELD_UNTIL(&s.pt, etimer_expired(&s.etimer));
@@ -373,7 +373,7 @@ PT_THREAD(handle_dhcp(process_event_t ev, void *data))
       PT_YIELD(&s.pt);
     }
     send_request();
-    ticks = IMIN(s.ticks / 2, MAX_TICKS);
+    ticks = IMIN(s.ticks / 2, MAX_TICKS32);
     s.ticks -= ticks;
     etimer_set(&s.etimer, ticks);
     do {
