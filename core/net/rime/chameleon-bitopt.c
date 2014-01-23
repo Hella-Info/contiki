@@ -69,7 +69,7 @@ static const uint8_t bitmask[9] = { 0x00, 0x80, 0xc0, 0xe0, 0xf0,
 #endif
 
 /*---------------------------------------------------------------------------*/
-uint8_t CC_INLINE
+static uint8_t CC_INLINE
 get_bits_in_byte(uint8_t *from, int bitpos, int vallen)
 {
   uint16_t shifted_val;
