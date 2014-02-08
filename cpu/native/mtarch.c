@@ -61,8 +61,10 @@ struct mtarch_t {
   ucontext_t context;
 };
 
+#ifndef __APPLE__
 static ucontext_t main_context;
 static ucontext_t *running_context;
+#endif
 
 #endif /* _WIN32 || __CYGWIN__ || __linux */
 
