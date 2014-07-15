@@ -337,16 +337,16 @@ settings_add(settings_key_t key, const uint8_t *value,
 
   header.size_check = ~header.size_low;
 
-  /* Write the header first */
-  eeprom_write(iter - sizeof(header), (uint8_t *)&header, sizeof(header));
-
   /* Sanity check, remove once confident */
   if(settings_iter_get_value_length(iter) != value_size) {
     goto bail;
   }
 
-  /* Now write the data */
-  eeprom_write(settings_iter_get_value_addr(iter), (uint8_t *)value, value_size);
+  /* Write the data first */
+  eeprom_write(iter - sizeof(header) - value_size, (uint8_t *)value, value_size);
+
+  /* Now write the header */
+  eeprom_write(iter - sizeof(header), (uint8_t *)&header, sizeof(header));
 
   /* This should be the last item. If this is not the case,
    * then we need to clear out the phantom setting.
